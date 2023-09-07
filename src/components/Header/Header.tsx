@@ -7,9 +7,9 @@ type Props = {
 };
 const Header = ({ headerData }: Props) => {
   const menuRef = useRef<any>(null);
-  // const { user } = localStorage.getItem("user")
-  //   ? JSON.parse(localStorage.getItem("user")!)
-  //   : false;
+  const { user } = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user")!)
+    : false;
 
   const toggleMenu = () => {
     if (menuRef) {
@@ -63,14 +63,19 @@ const Header = ({ headerData }: Props) => {
             </ul>
           </div>
           <div className="flex items-center gap-4">
-            <button className="flex items-center gap-2 text-smallTextColor font-[600] border border-solid border-smallTextColor py-2 px-4 rounded-[8px] max-h-[40px] hover:bg-smallTextColor hover:text-white hover:font-[500] ease-in duration-300">
-              <a
-                href="https://www.facebook.com/datnguyen.xuan.0112"
-                target="_blank"
-              >
-                <i className="ri-send-plane-fill"></i> Let's Talk
-              </a>
-            </button>
+            {user ? (
+              <button className="flex items-center gap-2 text-smallTextColor font-[600] border border-solid border-smallTextColor py-2 px-4 rounded-[8px] max-h-[40px] hover:bg-smallTextColor hover:text-white hover:font-[500] ease-in duration-300">
+                <Link to="/admin">
+                  <i className="ri-send-plane-fill"></i> Let's Talk
+                </Link>
+              </button>
+            ) : (
+              <button className="flex items-center gap-2 text-smallTextColor font-[600] border border-solid border-smallTextColor py-2 px-4 rounded-[8px] max-h-[40px] hover:bg-smallTextColor hover:text-white hover:font-[500] ease-in duration-300">
+                <Link to="/sign-in">
+                  <i className="ri-login-box-line"></i> Sign in
+                </Link>
+              </button>
+            )}
 
             <span
               onClick={toggleMenu}
