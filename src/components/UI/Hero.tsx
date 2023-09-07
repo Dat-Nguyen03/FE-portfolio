@@ -4,6 +4,7 @@ import CountUp from "react-countup";
 import { IAbout } from "../../interfaces/about";
 import { getAllAbout } from "../../api/about";
 import { IICon } from "../../interfaces/icon";
+import { TypeAnimation } from "react-type-animation";
 
 type Props = {
   icons: IICon[];
@@ -32,12 +33,23 @@ const Hero = ({ icons }: Props) => {
               >
                 {item.subIntro}
               </h5>
+
               <h1
                 data-aos="fade-up"
                 data-aos-duration="1500"
                 className="text-headingColor font-[800] text-[1.8rem] sm:text-[40px] leading-[35px] sm:leading-[46px] mt-5"
               >
-                {item.introText}
+                <TypeAnimation
+                  preRenderFirstString={true}
+                  sequence={[
+                    500,
+                    item.introText,
+                    1000,
+                    "I'm Dat Nguyen Back-End Web Developer",
+                  ]}
+                  speed={20}
+                  repeat={Infinity}
+                />
               </h1>
               <div
                 data-aos="fade-up"
