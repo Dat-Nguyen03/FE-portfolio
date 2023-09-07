@@ -37,7 +37,7 @@ const Hero = ({ icons }: Props) => {
               <h1
                 data-aos="fade-up"
                 data-aos-duration="1500"
-                className="text-headingColor font-[800] text-[1.8rem] sm:text-[40px] leading-[35px] sm:leading-[46px] mt-5"
+                className="text-headingColor font-[800] text-[1.8rem] sm:text-[40px] leading-[35px] sm:leading-[46px] mt-5 h-[92px]"
               >
                 <TypeAnimation
                   preRenderFirstString={true}
