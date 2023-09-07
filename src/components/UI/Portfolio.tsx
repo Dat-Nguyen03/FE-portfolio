@@ -26,19 +26,21 @@ const Portfolio = () => {
   useEffect(() => {
     (async () => {
       const { data } = await getAll();
+      console.log(data);
+
       if (selecttab === "all") {
         setProjects(data);
       }
       if (selecttab === "web-design") {
         const filterData = data.filter((item: IProject) => {
-          return item.projectCategoryId.name === "Web Design";
+          return item.projectCategoryId.name === "Web";
         });
         setProjects(filterData);
       }
 
-      if (selecttab === "ux-design") {
+      if (selecttab === "app-design") {
         const filterData = data.filter((item: IProject) => {
-          return item.projectCategoryId.name === "Ux";
+          return item.projectCategoryId.name === "App";
         });
         setProjects(filterData);
       }
@@ -58,21 +60,33 @@ const Portfolio = () => {
           <div className="flex gap-3">
             <button
               onClick={() => setSelectTab("all")}
-              className="text-smallTextColor border border-solid border-smallTextColor py-2 px-4 rounded-[8px]"
+              className={`${
+                selecttab === "all"
+                  ? "bg-smallTextColor text-white"
+                  : "text-smallTextColor bg-none"
+              }  border border-solid border-smallTextColor py-2 px-4 rounded-[8px]`}
             >
               All
             </button>
             <button
               onClick={() => setSelectTab("web-design")}
-              className="text-smallTextColor border border-solid border-smallTextColor py-2 px-4 rounded-[8px]"
+              className={`${
+                selecttab === "web-design"
+                  ? "bg-smallTextColor text-white"
+                  : "text-smallTextColor bg-none"
+              } text-smallTextColor border border-solid border-smallTextColor py-2 px-4 rounded-[8px]`}
             >
               Web Design
             </button>
             <button
-              onClick={() => setSelectTab("ux-design")}
-              className="text-smallTextColor border border-solid border-smallTextColor py-2 px-4 rounded-[8px]"
+              onClick={() => setSelectTab("app-design")}
+              className={`${
+                selecttab === "app-design"
+                  ? "bg-smallTextColor text-white"
+                  : "text-smallTextColor bg-none"
+              } text-smallTextColor border border-solid border-smallTextColor py-2 px-4 rounded-[8px]`}
             >
-              UX Design
+              App Design
             </button>
           </div>
         </div>
