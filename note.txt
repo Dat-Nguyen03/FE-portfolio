@@ -1,0 +1,27 @@
+- List Projects on Home page
+- Filter Projects
+- See detail when click a Projects
+- Sign in
+- Read About data from api
+- Read Header data from api
+- Read Footer data from api
+- List Services on Home page 
+- List Icon on Home page
+
+-Admin-
+- Create Project (Check permission)
+- Read Project
+- Edit Project (Check permission) and update category
+- Delete Project (Check permission) and update category
+- Upload file to cloudinary when creata project or edit project and update category
+
+
+- Create Service (Check permission)
+- Read Service
+- Edit Service (Check permission)
+- Delete Service (Check permission)
+
+- Manager Header, Footer  (Check permission)
+
+- Read About
+- Edit About (Check permission)
