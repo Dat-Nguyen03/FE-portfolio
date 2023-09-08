@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import { getAll } from "../../api/project";
 import { IProject } from "../../interfaces/project";
 import { Spin } from "antd";
+import { Skeleton } from "antd";
 
 const Portfolio = () => {
   const [nextItems, setNextItems] = useState<number>(6);
@@ -97,63 +98,67 @@ const Portfolio = () => {
         </div>
 
         <div className="flex items-center gap-4 flex-wrap mt-10">
-          {isLoading ? (
-            <div className="flex-1 text-center">
-              <Spin size="large" />
-            </div>
-          ) : (
-            Array.isArray(projects) &&
-            projects
-              ?.slice(0, nextItems)
-              ?.map((item: IProject, index: number) => (
-                <div
-                  key={index}
-                  data-aos="fade-zoom-in"
-                  data-aos-delay="50"
-                  data-aos-duration="1000"
-                  className="group max-w-full w-full sm:w-[48.5%] md:w-[31.8%] lg:w-[32.2%] relative z-[1]"
-                >
-                  <div className="w-full">
-                    <img
-                      className="rounded-[8px] w-full object-cover"
-                      src={item.imgUrl}
-                      alt=""
-                    />
-                  </div>
-                  <div className="w-full h-full bg-primaryColor bg-opacity-40 absolute top-0 left-0 z-[5] hidden group-hover:block rounded-[8px]">
-                    <div className="w-full h-full flex items-center justify-center">
-                      <button
-                        onClick={() => handleShowModal(item._id)}
-                        className="text-white bg-headingColor hover:bg-smallTextColor py-2 px-4 rounded-[8px] font-[500] ease-in duration-200"
-                      >
-                        See Details
-                      </button>
+          {isLoading
+            ? [1, 2, 3, 4, 5, 6].map((_, index) => (
+                <Skeleton.Image
+                  key={index + 1}
+                  active={true}
+                  className="!w-full !h-[249px] sm:!w-[447px] sm:!h-[298px] md:!w-[260px] md:!h-[173px] lg:!w-[363px] lg:!h-[240px] !rounded-[8px]"
+                />
+              ))
+            : Array.isArray(projects) &&
+              projects
+                ?.slice(0, nextItems)
+                ?.map((item: IProject, index: number) => (
+                  <div
+                    key={index}
+                    data-aos="fade-zoom-in"
+                    data-aos-delay="50"
+                    data-aos-duration="1000"
+                    className="group max-w-full w-full sm:w-[48.5%] md:w-[31.8%] lg:w-[32.2%] relative z-[1]"
+                  >
+                    <div className="w-full">
+                      <img
+                        className="rounded-[8px] w-full object-cover"
+                        src={item.imgUrl}
+                        alt=""
+                      />
+                    </div>
+                    <div className="w-full h-full bg-primaryColor bg-opacity-40 absolute top-0 left-0 z-[5] hidden group-hover:block rounded-[8px]">
+                      <div className="w-full h-full flex items-center justify-center">
+                        <button
+                          onClick={() => handleShowModal(item._id)}
+                          className="text-white bg-headingColor hover:bg-smallTextColor py-2 px-4 rounded-[8px] font-[500] ease-in duration-200"
+                        >
+                          See Details
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
-          )}
+                ))}
         </div>
 
-        <div className="text-center mt-6">
-          {projects.length <= 3 || projects.length <= 6 ? (
-            ""
-          ) : nextItems >= projects.length ? (
-            <button
-              onClick={handleLoadLess}
-              className="text-white bg-headingColor hover:bg-smallTextColor py-2 px-4 rounded-[8px] font-[500] ease-in duration-200"
-            >
-              See Less
-            </button>
-          ) : (
-            <button
-              onClick={handleLoadMore}
-              className="text-white bg-headingColor hover:bg-smallTextColor py-2 px-4 rounded-[8px] font-[500] ease-in duration-200"
-            >
-              See More
-            </button>
-          )}
-        </div>
+        {!isLoading && (
+          <div className="text-center mt-6">
+            {projects.length <= 3 || projects.length <= 6 ? (
+              ""
+            ) : nextItems >= projects.length ? (
+              <button
+                onClick={handleLoadLess}
+                className="text-white bg-headingColor hover:bg-smallTextColor py-2 px-4 rounded-[8px] font-[500] ease-in duration-200"
+              >
+                See Less
+              </button>
+            ) : (
+              <button
+                onClick={handleLoadMore}
+                className="text-white bg-headingColor hover:bg-smallTextColor py-2 px-4 rounded-[8px] font-[500] ease-in duration-200"
+              >
+                See More
+              </button>
+            )}
+          </div>
+        )}
       </div>
       {showModal && <Modal setShowModal={setShowModal} activeID={activeId} />}
     </section>
