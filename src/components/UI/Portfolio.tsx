@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { getAll } from "../../api/project";
 import { IProject } from "../../interfaces/project";
+import { getCategoryById } from "../../api/category";
 
 const Portfolio = () => {
   const [nextItems, setNextItems] = useState<number>(6);
@@ -26,7 +27,6 @@ const Portfolio = () => {
   useEffect(() => {
     (async () => {
       const { data } = await getAll();
-      console.log(data);
 
       if (selecttab === "all") {
         setProjects(data);
