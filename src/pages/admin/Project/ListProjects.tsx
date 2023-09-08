@@ -6,6 +6,7 @@ import { getAll, removeProject } from "../../../api/project";
 import { IProject } from "../../../interfaces/project";
 import { ITechology } from "../../../interfaces/techology";
 import { ICategory } from "../../../interfaces/category";
+import SpinLoading from "../../../components/Spin";
 
 type Props = {};
 interface DataType {
@@ -19,6 +20,7 @@ interface DataType {
 
 const ListProjects = (props: Props) => {
   const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const columns: ColumnsType<DataType> = [
     {
@@ -90,12 +92,16 @@ const ListProjects = (props: Props) => {
   const handleRemove = async (id: number | string) => {
     try {
       if (id) {
+        setIsLoading(true);
         await removeProject(id);
-        message.info("Đã xóa thành công!");
+        message.success("Đã xóa thành công!");
         setProjects(projects.filter((item: DataType) => item.key !== id));
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      // console.log(error);
+      message.error(error.messgae);
+      setIsLoading(false);
     }
   };
 
@@ -118,7 +124,12 @@ const ListProjects = (props: Props) => {
   }, []);
   // console.log(projects);
 
-  return <Table columns={columns} dataSource={projects} />;
+  return (
+    <>
+      {isLoading && <SpinLoading size="large" tip="Loading..." />}
+      <Table columns={columns} dataSource={projects} />;
+    </>
+  );
 };
 
 export default ListProjects;

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { getAll } from "../../api/project";
 import { IProject } from "../../interfaces/project";
-import { getCategoryById } from "../../api/category";
+import { Spin } from "antd";
 
 const Portfolio = () => {
   const [nextItems, setNextItems] = useState<number>(6);
@@ -10,6 +10,7 @@ const Portfolio = () => {
   const [selecttab, setSelectTab] = useState<string>("all");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [activeId, setActiveId] = useState<string | number>(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleShowModal = (id: number | string) => {
     if (typeof id === "string" || typeof id === "number") {
@@ -26,16 +27,19 @@ const Portfolio = () => {
 
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
       const { data } = await getAll();
 
       if (selecttab === "all") {
         setProjects(data);
+        setIsLoading(false);
       }
       if (selecttab === "web-design") {
         const filterData = data.filter((item: IProject) => {
           return item.projectCategoryId.name === "Web";
         });
         setProjects(filterData);
+        setIsLoading(false);
       }
 
       if (selecttab === "app-design") {
@@ -43,6 +47,7 @@ const Portfolio = () => {
           return item.projectCategoryId.name === "App";
         });
         setProjects(filterData);
+        setIsLoading(false);
       }
     })();
   }, [selecttab]);
@@ -92,7 +97,12 @@ const Portfolio = () => {
         </div>
 
         <div className="flex items-center gap-4 flex-wrap mt-10">
-          {Array.isArray(projects) &&
+          {isLoading ? (
+            <div className="flex-1 text-center">
+              <Spin size="large" />
+            </div>
+          ) : (
+            Array.isArray(projects) &&
             projects
               ?.slice(0, nextItems)
               ?.map((item: IProject, index: number) => (
@@ -121,8 +131,10 @@ const Portfolio = () => {
                     </div>
                   </div>
                 </div>
-              ))}
+              ))
+          )}
         </div>
+
         <div className="text-center mt-6">
           {projects.length <= 3 || projects.length <= 6 ? (
             ""

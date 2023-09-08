@@ -1,5 +1,4 @@
-import React from "react";
-
+import { message } from "antd";
 type Props = {};
 
 const Contact = (props: Props) => {
@@ -50,7 +49,11 @@ const Contact = (props: Props) => {
                   className="w-full p-3 focus:outline-none rounded-[5px]"
                 />
               </div>
-              <button className="w-full p-3 focus:outline-none rounded-[5px] bg-smallTextColor text-white hover:bg-headingColor text-center ease-linear duration-150">
+              <button
+                onClick={() => message.success("Thank you send message")}
+                type="button"
+                className="w-full p-3 focus:outline-none rounded-[5px] bg-smallTextColor text-white hover:bg-headingColor text-center ease-linear duration-150"
+              >
                 Send Message
               </button>
             </form>

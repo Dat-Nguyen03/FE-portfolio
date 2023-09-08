@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import heroImg from "../../assets/images/hero.svg";
 import CountUp from "react-countup";
 import { IAbout } from "../../interfaces/about";
 import { getAllAbout } from "../../api/about";
