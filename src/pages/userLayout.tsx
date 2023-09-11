@@ -9,14 +9,19 @@ import { ISetting } from "../interfaces/setting";
 import { getSetting } from "../api/setting";
 import { getAllIcon } from "../api/icon";
 import { IICon } from "../interfaces/icon";
+import { pause } from "../utils/pause";
 
 const UserLayout = () => {
   const [setting, setSeting] = useState<ISetting[]>([]);
   const [icons, setIcons] = useState<IICon[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     (async () => {
+      setIsLoading(true);
+      await pause(1000);
       const { data } = await getSetting();
       setSeting(data);
+      // setIsLoading(false);
     })();
   }, []);
 
@@ -28,7 +33,7 @@ const UserLayout = () => {
   }, []);
   return (
     <>
-      <Header headerData={setting} />
+      <Header headerData={setting} isLoading={isLoading} />
       <main>
         <Hero icons={icons} />
         <Sevice />

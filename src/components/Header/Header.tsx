@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ISetting } from "../../interfaces/setting";
-
+import { Skeleton } from "antd";
 type Props = {
   headerData: ISetting[];
+  isLoading: boolean;
 };
-const Header = ({ headerData }: Props) => {
+const Header = ({ headerData, isLoading }: Props) => {
   const menuRef = useRef<any>(null);
   // const { user } = localStorage.getItem("user")
   //   ? JSON.parse(localStorage.getItem("user")!)
@@ -17,25 +18,42 @@ const Header = ({ headerData }: Props) => {
     }
   };
   return (
-    <header className="w-full h-[80px] leading-[80px] flex items-center">
+    <header className="w-full h-[80px] leading-[80px] flex items-center ">
       <div className="container">
-        <div className="flex items-center justify-between">
-          {headerData.map((item, index) => (
-            <a href="#" className="flex items-center gap-[10px]" key={index}>
-              <span className="w-[35px] h-[35px] bg-primaryColor text-white text-[18px] font-[500] rounded-full flex items-center justify-center">
-                {item.logoTitle}
+        <div className="flex items-center justify-between overflow-hidden">
+          {isLoading ? (
+            <a href="#" className="!flex !items-center !gap-x-[10px]">
+              <span className="w-[35px] h-[35px] text-white text-[18px] font-[500] rounded-full flex">
+                <Skeleton.Avatar active size="large" shape="circle" />
               </span>
 
               <div className="leading-[20px]">
                 <h2 className="text-xl text-smallTextColor font-[700]">
-                  {item.bigTitle}
+                  <Skeleton.Input active />
                 </h2>
-                <p className="text-smallTextColor text-[14px] font-[500]">
-                  {item.smallTitle}
+                <p className="text-smallTextColor text-[14px] font-[500] mt-2">
+                  <Skeleton.Input active size="small" />
                 </p>
               </div>
             </a>
-          ))}
+          ) : (
+            headerData.map((item, index) => (
+              <a href="#" className="flex items-center gap-[10px]" key={index}>
+                <span className="w-[35px] h-[35px] bg-primaryColor text-white text-[18px] font-[500] rounded-full flex items-center justify-center">
+                  {item.logoTitle}
+                </span>
+
+                <div className="leading-[20px]">
+                  <h2 className="text-xl text-smallTextColor font-[700]">
+                    {item.bigTitle}
+                  </h2>
+                  <p className="text-smallTextColor text-[14px] font-[500]">
+                    {item.smallTitle}
+                  </p>
+                </div>
+              </a>
+            ))
+          )}
 
           <div className="menu" ref={menuRef} onClick={toggleMenu}>
             <ul className="flex relative items-center gap-10">
