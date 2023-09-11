@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { getAll } from "../../api/project";
 import { IProject } from "../../interfaces/project";
-import { Spin } from "antd";
 import { Skeleton } from "antd";
+import { pause } from "../../utils/pause";
 
 const Portfolio = () => {
   const [nextItems, setNextItems] = useState<number>(6);
@@ -29,6 +29,7 @@ const Portfolio = () => {
   useEffect(() => {
     (async () => {
       setIsLoading(true);
+      await pause(1000);
       const { data } = await getAll();
 
       if (selecttab === "all") {
@@ -103,7 +104,7 @@ const Portfolio = () => {
                 <Skeleton.Image
                   key={index + 1}
                   active={true}
-                  className="!w-full !h-[249px] sm:!w-[447px] sm:!h-[298px] md:!w-[260px] md:!h-[173px] lg:!w-[363px] lg:!h-[240px] !rounded-[8px]"
+                  className="!w-full !h-[249px] sm:!w-[337px] sm:!h-[225px] md:!w-[260px] md:!h-[173px] lg:!w-[363px] lg:!h-[240px] !rounded-[8px]"
                 />
               ))
             : Array.isArray(projects) &&
