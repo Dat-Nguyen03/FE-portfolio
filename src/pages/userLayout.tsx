@@ -21,7 +21,7 @@ const UserLayout = () => {
       await pause(1000);
       const { data } = await getSetting();
       setSeting(data);
-      // setIsLoading(false);
+      setIsLoading(false);
     })();
   }, []);
 
