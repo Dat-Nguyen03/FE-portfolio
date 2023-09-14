@@ -29,10 +29,10 @@ const Header = ({ headerData, isLoading }: Props) => {
 
               <div className="leading-[20px]">
                 <h2 className="text-xl text-smallTextColor font-[700]">
-                  <Skeleton.Input active />
+                  <Skeleton.Button active size="default" />
                 </h2>
                 <p className="text-smallTextColor text-[14px] font-[500] mt-2">
-                  <Skeleton.Input active size="small" />
+                  <Skeleton.Button active size="small" />
                 </p>
               </div>
             </a>

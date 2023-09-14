@@ -55,3 +55,13 @@ export const categorySchema = Yup.object({
 });
 
 export type CategoryForm = Yup.InferType<typeof categorySchema>;
+
+export const contactSchema = Yup.object({
+  name: Yup.string().required("Không được để trống."),
+  email: Yup.string()
+    .email("Email sai định dạng.")
+    .required("Không được để trống."),
+  content: Yup.string().required("Không được để trống."),
+});
+
+export type ContactForm = Yup.InferType<typeof contactSchema>;

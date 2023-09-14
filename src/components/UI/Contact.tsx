@@ -1,7 +1,30 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { message } from "antd";
+import { useForm } from "react-hook-form";
+import { ContactForm, contactSchema } from "../../interfaces/schemas";
+import { sendContact } from "../../api/contact.api";
 type Props = {};
 
 const Contact = (props: Props) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ContactForm>({
+    resolver: yupResolver(contactSchema),
+  });
+
+  const onHandleSubmit = async (data: ContactForm) => {
+    try {
+      await sendContact(data);
+      message.success("Thank you send message");
+      reset();
+    } catch (error: any) {
+      console.log(error);
+      message.error(error);
+    }
+  };
   return (
     <section id="contact" className="pb-16">
       <div className="container">
@@ -20,38 +43,47 @@ const Contact = (props: Props) => {
             ></iframe>
           </div>
           <div className="w-full mt-8 md:mt-0 md:w-1/2 sm:h-[450px] lg:flex items-center bg-indigo-100 px-4 lg:px-8 py-8">
-            <form action="" className="w-full">
+            <form
+              action=""
+              className="w-full"
+              onSubmit={handleSubmit(onHandleSubmit)}
+            >
               <div className="mb-5">
                 <input
+                  {...register("name")}
                   type="text"
-                  placeholder="Enter your name"
+                  placeholder="Enter your name..."
                   className="w-full p-3 focus:outline-none rounded-[5px]"
                 />
+                <span className="text-red-500 text-sm block my-2">
+                  {errors.name && errors.name.message}
+                </span>
               </div>
               <div className="mb-5">
                 <input
+                  {...register("email")}
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter your email..."
                   className="w-full p-3 focus:outline-none rounded-[5px]"
                 />
+                <span className="text-red-500 text-sm block my-2">
+                  {errors.email && errors.email.message}
+                </span>
               </div>
-              <div className="mb-5">
-                <input
-                  type="text"
-                  placeholder="Subject"
-                  className="w-full p-3 focus:outline-none rounded-[5px]"
-                />
-              </div>
+
               <div className="mb-5">
                 <textarea
+                  {...register("content")}
                   rows={3}
-                  placeholder="Subject"
+                  placeholder="Content..."
                   className="w-full p-3 focus:outline-none rounded-[5px]"
                 />
+                <span className="text-red-500 text-sm block my-2">
+                  {errors.content && errors.content.message}
+                </span>
               </div>
               <button
-                onClick={() => message.success("Thank you send message")}
-                type="button"
+                type="submit"
                 className="w-full p-3 focus:outline-none rounded-[5px] bg-smallTextColor text-white hover:bg-headingColor text-center ease-linear duration-150"
               >
                 Send Message

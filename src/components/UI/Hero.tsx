@@ -243,7 +243,7 @@ const Hero = ({ icons }: Props) => {
                 </div>
                 <div className="mb-10">
                   <h2 className="text-headingColor font-[700] text-[32px]">
-                    <CountUp start={0} end={150} duration={2} suffix="+" />
+                    <CountUp start={0} end={150} duration={5} suffix="+" />
                   </h2>
                   <h4 className="text-headingColor font-[600] text-[18px]">
                     Happy clients
@@ -251,7 +251,7 @@ const Hero = ({ icons }: Props) => {
                 </div>
                 <div className="mb-10">
                   <h2 className="text-headingColor font-[700] text-[32px]">
-                    <CountUp start={0} end={249} duration={2} suffix="+" />
+                    <CountUp start={0} end={249} duration={6} suffix="+" />
                   </h2>
                   <h4 className="text-headingColor font-[600] text-[18px]">
                     Projects Completed
